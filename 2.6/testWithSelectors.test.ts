@@ -12,22 +12,23 @@ describe("Filling in the blanks", () => {
         await driver.quit();
     })
 
-    const hdrInput: By = By. //fill in the blank
-    const mkeInput: By = By. //fill in the blank
-    const oaiInput: By = By. //fill in the blank
-    const nameInput: By = By. //fill in the blank
-    const clrBtn: By = By. //fill in blank 
-    const submitBtn: By = By. //fill in blank
-    const errorMsg: By = By. // fill in blank 
+    const hdrInput: By = By.xpath(`//input[@name="hdrInput"]`) 
+    const mkeInput: By = By.xpath(`//input[@name="mkeInput"]`) 
+    const oaiInput: By = By.xpath(`//input[@name="oaiInput"]`)
+    const nameInput: By = By.xpath(`//input[@name="nameInput"]`)
+    const clrBtn: By = By.xpath(`//button[@id="clrInput"]`)
+    const submitBtn: By = By.xpath(`//button[@id="saveBtn"]`)
+    const errorMsg: By = By.xpath(`//p[@id="validHeader"]`) 
 
-    test("filling in the blanks for real", () => {
-        await driver.findElement(hdrInput).sendKeys("Change this")
-        await driver.findElement(mkeInput).sendKeys("change this")
-        await driver.findElement(oaiInput).sendKeys("change this")
-        await driver.findElement(nameInput).sendKeys("change this")
+    test("filling in the blanks for real", async () => {
+        await driver.findElement(hdrInput).sendKeys("Bad Guy Out and about")
+        await driver.findElement(mkeInput).sendKeys("This is a lot of fun")
+        await driver.findElement(oaiInput).sendKeys("I have no idea what this is for but here you go")
+        await driver.findElement(nameInput).sendKeys("The Joker")
         await driver.findElement(submitBtn).click()
-        expect(errorMsg).toContain("Errors Received:")
-        await driver.findElement(clrBtn).click()
+        let errorM = await driver.findElement(errorMsg).getText()
+        expect(errorM).toContain("Errors Received:")
+            await driver.findElement(clrBtn).click()
         
     })
 })
